@@ -1,27 +1,57 @@
-# @rxtk/PACKAGE_NAME
-> DESCRIPTION
+# @rxtk/genai
+> Generative AI tools for RxJS
 
-FIXME - TODOS
-- Replace all instances of `"PACKAGE_NAME"` (in this repository) with the name of your package
-- Replace all instances of DESCRIPTION with your descrition of the package.
-- Look for the items that say FIXME and fix them.  There are only a couple.
 - Publish first to npm. Then GitHub can push to the registry: `yarn publish --access public`
 
 ## Installation
 ```bash
-npm i @rxtk/PACKAGE_NAME
+npm i @rxtk/genai
 ```
 
 ```bash
-yarn add @rxtk/PACKAGE_NAME
+yarn add @rxtk/genai
 ```
 
 ## API
-FIXME - write some docs so other devs know how the public API works.
-### `myFunc`
+
+### `toModel({vendor='openai', model='gpt-4o'})`
 ```js
 import {from} from 'rxjs';
-import {myFunction} from '@rxtk/PACKAGE_NAME';
+import {map} from 'rxjs/operators';
+import {toModel} from '@rxtk/genai';
+
+const string$ = from(['hello', 'goodbye']);
+const output$ = string$.pipe(
+  map(str => [
+    ['system', 'Translate the input text into German.'],
+    ['user', str]
+  ]),
+  // accepts an array of messages
+  toModel({vendor: 'openai', model: 'gpt-4o'})
+);
+output$.subscribe(console.log); 
+// Output:
+// {}
+// {}
+```
+
+### `toPrompt(promptTemplate)`
+```js
+import {from} from 'rxjs';
+import {toModel} from '@rxtk/genai';
+
+const string$ = from(['foo', 'bar']);
+const output$ = string$.pipe(myFunction());
+output$.subscribe(console.log); 
+// Output:
+// foo
+// bar
+```
+
+### `parseCompletion()`
+```js
+import {from} from 'rxjs';
+import {toModel} from '@rxtk/genai';
 
 const string$ = from(['foo', 'bar']);
 const output$ = string$.pipe(myFunction());
