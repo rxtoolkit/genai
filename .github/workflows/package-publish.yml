@@ -1,0 +1,95 @@
+# https://medium.com/javascript-in-plain-english/publish-update-npm-packages-with-github-actions-e4d786ffd62a
+name: 'Release'
+on:
+  push:
+    branches: [ master ]
+env:
+  NODE_VERSION: 20.x
+jobs:
+  get-next-version:
+    name: Gets the next version
+    runs-on: ubuntu-20.04
+    steps:
+      -
+        name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
+      - name: Use node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          scope: '@rxtk'
+          always-auth: true
+          cache: yarn
+      - name: Setup private npm auth
+        run: yarn install
+      - name: Install dependencies
+        run: npx ci
+      - run: npx semantic-release --dry-run
+        id: get-next-version
+        env:
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+    outputs:
+      new-release-published: ${{ steps.get-next-version.outputs.new-release-published }}
+      new-release-version: ${{ steps.get-next-version.outputs.new-release-version }}
+  test:
+    name: Build, test and publish package
+    runs-on: ubuntu-latest
+    needs: [ get-next-version ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          scope: '@rxtk'
+          always-auth: true
+          cache: yarn
+      - name: Install npm dependencies
+        run: yarn
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Run tests
+        run: yarn test
+      - name: Bump version
+        env:
+          VERSION: ${{ needs.get-next-version.outputs.new-release-version }}
+        run: |
+          sed -i'.bak' "s/  \"version\": .*/  \"version\": \"${VERSION}\",/g" package.json
+          rm "package.json.bak" || true
+      - name: Build
+        run: yarn build
+      - name: Publish to registry
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+  release:
+    name: 'Release'
+    needs: [ get-next-version, test ]
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
+      - name: Use node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          scope: '@rxtk'
+          always-auth: true
+          cache: yarn
+      - name: Install dependencies
+        run: npx ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+        run: npx semantic-release
