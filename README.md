@@ -104,7 +104,7 @@ const input = [
 const input$ = of(...input);
 
 const workflows = pipelines.map(p => 
-  of(input$).pipe(
+  input$.pipe(
     toPrompt([
       ['system', 'Translate the phrase into the language: {{language}}'],
       ['user', '{{phrase}}'],
