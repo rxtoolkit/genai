@@ -78,7 +78,7 @@ completionString$.subscribe(console.log);
 
 ### Generate Completions from Multiple Vendors
 ```js
-import {of} from 'rxjs';
+import {concat,of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {toPrompt,toModel,toCompletionString} from '@rxtk/genai';
 
@@ -101,21 +101,26 @@ const input = [
   {language: 'german', phrase: 'hello'},
   {language: 'french', phrase: 'goodbye'}
 ];
+const input$ = of(...input);
 
-const completionString$ = of(...input).pipe(
-  // inject variables into a prompt template
-  toPrompt([
-    ['system', 'Translate the phrase into the language: {{language}}'],
-    ['user', '{{phrase}}'],
-  ]),
-  // send the prompt to the desired vendor and model
-  toModel({vendor: 'openai', model: 'gpt-4o'}),
-  // retrieve the string value of the completion
-  toCompletionString()
+const workflows = pipelines.map(p => 
+  of(input$).pipe(
+    toPrompt([
+      ['system', 'Translate the phrase into the language: {{language}}'],
+      ['user', '{{phrase}}'],
+    ]),
+    toModel(p),
+    toCompletionString(),
+    map(c => `vendor=${p.vendor}, model=${p.model} completion='${c}'`)
+  )
 );
-completionString$.subscribe(console.log);
-// Hallo
-// au revoir
+
+const output$ = concat(...workflows);
+output$.subscribe(console.log);
+// vendor=openai, model=gpt-40, completion='Hallo'
+// ...
+// vendor=anthropic, model=claude-3-opus-20240229, completion='Hallo'
+// ...
 ```
 
 ### (Beta): Generate Completions from a Custom Model
