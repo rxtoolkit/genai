@@ -1,10 +1,10 @@
 {
   "name": "@rxtk/genai",
   "version": "0.0.1",
-  "description": "DESCRIPTION",
+  "description": "⚡️ Generative AI tools for RxJS",
   "main": "dist/index.js",
   "repository": "https://github.com/rxtoolkit/genai.git",
-  "author": "Buccaneer LLC <opensource@buccaneer.ai>",
+  "author": "Brian Flaherty <opensource@buccaneer.ai>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rxtoolkit/genai/issues"
