@@ -1,13 +1,13 @@
 {
-  "name": "@rxtk/PACKAGE_NAME",
+  "name": "@rxtk/genai",
   "version": "0.0.1",
-  "description": "DESCRIPTION",
+  "description": "⚡️ Generative AI tools for RxJS",
   "main": "dist/index.js",
-  "repository": "https://github.com/rxtoolkit/PACKAGE_NAME.git",
-  "author": "Buccaneer LLC <opensource@buccaneer.ai>",
+  "repository": "https://github.com/rxtoolkit/genai.git",
+  "author": "Brian Flaherty <opensource@buccaneer.ai>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rxtoolkit/PACKAGE_NAME/issues"
+    "url": "https://github.com/rxtoolkit/genai/issues"
   },
   "keywords": [
     "rxjs",
@@ -24,9 +24,13 @@
   ],
   "scripts": {
     "build": "BABEL_ENV=build babel src --out-dir dist --source-maps --extensions .js --config-file ./babel.config.js --delete-dir-on-start --no-comments",
-    "test": "mocha --require @babel/register --require @babel/polyfill \"./{,!(node_modules)/**/}*.test.js\" --exit --require source-map-support"
+    "test": "mocha --require @babel/register --require @babel/polyfill \"./{,!(node_modules)/**/}*.test.js\" --exit --require source-map-support",
+    "demo": "node ./scripts/runDemo.js"
   },
   "dependencies": {
+    "@anthropic-ai/bedrock-sdk": "^0.10.2",
+    "@anthropic-ai/vertex-sdk": "^0.4.1",
+    "axios": "^1.7.2",
     "lodash": "^4.17.21",
     "rxjs": "^7.5.7"
   },
@@ -48,5 +52,6 @@
   },
   "engines": {
     "node": ">= 12.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
