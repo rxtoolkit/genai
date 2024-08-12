@@ -7,11 +7,14 @@ import {
   mergeMap, 
   catchError, 
   takeLast,
-  timeInterval
+  timeInterval,
+  bufferCount
 } from 'rxjs/operators';
 
 import toAnthropic from '../internals/toAnthropic';
+import toCohere from '../internals/toCohere';
 import toOpenAI from '../internals/toOpenAI';
+import getOperationMetadata from '../internals/getOperationMetadata';
 
 const errors = {
   badResponse: (err, vendor, model) => new Error(
@@ -22,7 +25,7 @@ const errors = {
 const operators = {
   'anthropic': toAnthropic,
   'openai': toOpenAI,
-  // 'cohere': toCohere,
+  'cohere': toCohere,
   // 'huggingface': toHuggingface,
   // aws: toAWS,
   // gcp: toGCP,
@@ -30,15 +33,28 @@ const operators = {
 
 const toModel = ({
   vendor, 
-  model
+  model,
+  customOperator = null, // pass a custom operator. See existing examples (toAnthropic, toOpenAI, etc.)
 },
   options = {
     llm: null,
     normalize: true,
     apiKey: null,
+    name: null,
+    runId: null, // for tracking purposes
+    // batchSize: null, // TODO
+    // collector: null, // TODO: collect useful data like langsmith does,
   }
 ) => source$ => {
-  const toVendor = operators?.[vendor];
+  // TODO
+  // const metadata = getOperationMetadata({
+  //   runId,
+  //   name,
+  //   operator: 'toModel',
+  //   vendor: options?.customOperator ? 'custom' : vendor,
+  //   model: options?.customOperator && !model ? 'custom' : model,
+  // });
+  const toVendor = customOperator || operators?.[vendor];
   if (!toVendor) return throwError('Unknown model vendor!');
   const completion$ = source$.pipe(
     map(prompt => (

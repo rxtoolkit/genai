@@ -11,7 +11,7 @@ export const parseResult = () => result => ({
   usage: result.data?.usage,
 });
 
-const toOpenAI = (params, options = {}, internals = {_axios: axios}) => source$ => source$.pipe(
+const toOpenAI = (params, options = {}, _axios = axios) => source$ => source$.pipe(
   mergeMap(messages => {
     const {model, apiKey} = params;
     const data$ = from(
@@ -25,6 +25,7 @@ const toOpenAI = (params, options = {}, internals = {_axios: axios}) => source$ 
         },
         headers: {
           'Authorization': `Bearer ${options?.apiKey || process.env?.OPENAI_API_KEY}`,
+          'Content-Type': 'application/json',
         }
       })
     );

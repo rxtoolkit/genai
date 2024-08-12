@@ -24,9 +24,12 @@
   ],
   "scripts": {
     "build": "BABEL_ENV=build babel src --out-dir dist --source-maps --extensions .js --config-file ./babel.config.js --delete-dir-on-start --no-comments",
-    "test": "mocha --require @babel/register --require @babel/polyfill \"./{,!(node_modules)/**/}*.test.js\" --exit --require source-map-support"
+    "test": "mocha --require @babel/register --require @babel/polyfill \"./{,!(node_modules)/**/}*.test.js\" --exit --require source-map-support",
+    "demo": "node ./scripts/runDemo.js"
   },
   "dependencies": {
+    "@anthropic-ai/bedrock-sdk": "^0.10.2",
+    "@anthropic-ai/vertex-sdk": "^0.4.1",
     "axios": "^1.7.2",
     "lodash": "^4.17.21",
     "rxjs": "^7.5.7"
