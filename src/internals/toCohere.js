@@ -4,11 +4,16 @@ import {catchError, map, mergeMap} from 'rxjs/operators';
 
 export const parseResult = () => result => ({
   id: result.data?.generation_id,
-  model: result.data?.completion?.model,
-  object: result.data?.type,
+  model: result.data?.model,
+  object: 'message',
   content: result.data?.chat_history
     ?.filter((m, i) => i === result.data?.chat_history?.length - 1)
-    .map(m => ({message: {role: m.role, content: m.message}})),
+    .map(m => ({
+      message: {
+        role: m.role === 'CHATBOT' ? 'assistant' : m.role.toLowerCase(), 
+        content: m.message
+      }
+    })),
   usage: {
     prompt_tokens: result.data?.meta?.tokens?.input_tokens,
     completion_tokens: result.data?.meta?.tokens?.output_tokens,
@@ -52,7 +57,9 @@ const toCohere = (
           'Authorization': `Bearer ${options?.apiKey || process?.env?.COHERE_API_KEY}`,
           'content-type': 'application/json',
         }
-      })
+      }).pipe(
+        map(response => ({data: {...response.data, model}}))
+      )
     );
     return data$.pipe(
       map(options?.normalize ? parseResult() : x => x),

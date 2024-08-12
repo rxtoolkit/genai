@@ -3,8 +3,8 @@ import {from, throwError} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 
 export const parseResult = () => result => ({
-  id: result.data?.completion?.id,
-  model: result.data?.completion?.model,
+  id: result.data?.id,
+  model: result.data?.model,
   object: result.data?.type,
   content: [...result.data.content.map(m => ({
     message: {
