@@ -33,9 +33,9 @@
     node-fetch "^2.6.7"
 
 "@anthropic-ai/vertex-sdk@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@anthropic-ai/vertex-sdk/-/vertex-sdk-0.4.1.tgz#0745bf167fc0d4fe7eff8af5fa3a4e3433ee6c93"
-  integrity sha512-RT/2CWzqyAcJDZWxnNc1mXa7XiiHDaQ9aknfW4mIDw6zE+Zj/R2vCKpTb0dIwrmHYNOyKQNaD7Z1ynDt9oXFWA==
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@anthropic-ai/vertex-sdk/-/vertex-sdk-0.4.2.tgz#4ca9ac8f5a5e65e03a45e692d6f064f119c465cf"
+  integrity sha512-Tj6e7AYRVWz58t3oX19PUG70HHmnEZkYgYgFeJRjuQrh2kNd9Ge2ywL1Okzz3qwwWTTvtQN018iVpAVQgj8Wwg==
   dependencies:
     "@anthropic-ai/sdk" ">=0.14 <1"
     google-auth-library "^9.4.2"
