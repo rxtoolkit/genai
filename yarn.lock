@@ -3,9 +3,9 @@
 
 
 "@anthropic-ai/bedrock-sdk@^0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@anthropic-ai/bedrock-sdk/-/bedrock-sdk-0.10.2.tgz#364258e96c24b170162a6d4d00c715e737a20817"
-  integrity sha512-sGmTzKJQHVwfXexe+yfzPU3rJmUMCygC+GNPkmMsPX/Jr+WKtJ0M71nGyHONr6vcHwUpUWA6o0MRH/oHaE54KA==
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/@anthropic-ai/bedrock-sdk/-/bedrock-sdk-0.10.4.tgz#54d1d7c5f1ac794c0fde5a6804b4846958d5e77b"
+  integrity sha512-szduEHbMli6XL934xrraYg5cFuKL/1oMyj/iZuEVjtddQ7eD5cXObzWobsv5mTLWijQmSzMfFD+JAUHDPHlQ/Q==
   dependencies:
     "@anthropic-ai/sdk" "^0"
     "@aws-crypto/sha256-js" "^4.0.0"
