@@ -32,10 +32,10 @@
     formdata-node "^4.3.2"
     node-fetch "^2.6.7"
 
-"@anthropic-ai/vertex-sdk@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@anthropic-ai/vertex-sdk/-/vertex-sdk-0.4.1.tgz#0745bf167fc0d4fe7eff8af5fa3a4e3433ee6c93"
-  integrity sha512-RT/2CWzqyAcJDZWxnNc1mXa7XiiHDaQ9aknfW4mIDw6zE+Zj/R2vCKpTb0dIwrmHYNOyKQNaD7Z1ynDt9oXFWA==
+"@anthropic-ai/vertex-sdk@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@anthropic-ai/vertex-sdk/-/vertex-sdk-0.5.0.tgz#d96671f5dc122b05c20ab09236fe9ae2ec7d8f51"
+  integrity sha512-pzPY8HF2tT9a0m1K7qN8ahP5PDsasvS9HpI12gPFf91YDS4g31ULmgeA06AVZg247/dPcV3KpwakNvpsXSH7oQ==
   dependencies:
     "@anthropic-ai/sdk" ">=0.14 <1"
     google-auth-library "^9.4.2"
