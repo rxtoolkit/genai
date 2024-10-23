@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@anthropic-ai/bedrock-sdk@^0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@anthropic-ai/bedrock-sdk/-/bedrock-sdk-0.10.2.tgz#364258e96c24b170162a6d4d00c715e737a20817"
-  integrity sha512-sGmTzKJQHVwfXexe+yfzPU3rJmUMCygC+GNPkmMsPX/Jr+WKtJ0M71nGyHONr6vcHwUpUWA6o0MRH/oHaE54KA==
+"@anthropic-ai/bedrock-sdk@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@anthropic-ai/bedrock-sdk/-/bedrock-sdk-0.11.0.tgz#9433c1ae59a8c197c3099215b8b8190b5bcaee0b"
+  integrity sha512-Ix+KXVT3aeSazqo8ca8fcIK3jvEv9Wq+4Br4pla89+2BLOYE7KzLdAJESC6GGcwYAt90aQyf5Nn5b1SGyEganA==
   dependencies:
     "@anthropic-ai/sdk" "^0"
     "@aws-crypto/sha256-js" "^4.0.0"
